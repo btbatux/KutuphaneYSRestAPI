@@ -1,6 +1,8 @@
 package com.btbatux.restapi.controller;
 
 import com.btbatux.restapi.customExeption.NotFoundException;
+import com.btbatux.restapi.dto.AuthorCreateDTO;
+import com.btbatux.restapi.dto.AuthorDto;
 import com.btbatux.restapi.entities.Author;
 import com.btbatux.restapi.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,31 +26,25 @@ public class AuthorController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Author> gettAllAuthor() {
+    public List<AuthorDto> gettAllAuthor() {
         return this.authorService.findAll();
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Author getAuthorById(@PathVariable Long id) {
+    public AuthorDto getAuthorById(@PathVariable Long id) {
         return this.authorService.findById(id);
     }
 
     @PostMapping //Yazar ekleme
     @ResponseStatus(HttpStatus.CREATED)
-    public Author save(@RequestBody Author author) {
-        return this.authorService.save(author);
+    public AuthorDto save(@RequestBody AuthorCreateDTO authorCreateDTO) {
+        return this.authorService.save(authorCreateDTO);
     }
 
     @PutMapping("/{id}") //Yazar Güncelleme
-    public ResponseEntity<Author> updateAuthor(@PathVariable Long id, @RequestBody Author author) {
-        try {
-            Author updateAuthor = this.authorService.update(id, author);
-            return ResponseEntity.ok(updateAuthor);
-
-        } catch (NotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(author);
-        }
+    public ResponseEntity<AuthorDto> updateAuthor(@PathVariable Long id, @RequestBody AuthorCreateDTO authorCreateDTO) {
+        return ResponseEntity.ok(authorService.update(id, authorCreateDTO));
     }
 
     @DeleteMapping("/{id}")

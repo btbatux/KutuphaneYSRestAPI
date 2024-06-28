@@ -2,9 +2,7 @@ package com.btbatux.restapi.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Generated;
 
@@ -13,7 +11,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "authors")
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Author {
@@ -34,5 +31,35 @@ public class Author {
     private List<Book>bookList = new ArrayList<>();
 
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(int birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public List<Book> getBookList() {
+        return bookList;
+    }
+
+    public void setBookList(List<Book> bookList) {
+        this.bookList = bookList;
+    }
 }
